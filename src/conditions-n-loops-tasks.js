@@ -205,13 +205,11 @@ function convertNumberToString(numberStr) {
   let result = '';
   let startIndex = 0;
 
-  // Handle the minus sign
   if (numberStr[0] === '-') {
     result += `${words['-']} `;
     startIndex = 1;
   }
 
-  // Convert each character to words using a loop
   for (let i = startIndex; i < numberStr.length; i += 1) {
     const char = numberStr[i];
     result += char in words ? `${words[char]} ` : '';
@@ -289,8 +287,18 @@ function getIndexOf(str, letter) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  if (digit < 0 || digit > 9) {
+    return false;
+  }
+  let currentNum = num;
+  while (currentNum > 0) {
+    if (currentNum % 10 === digit) {
+      return true;
+    }
+    currentNum = Math.floor(currentNum / 10);
+  }
+  return false;
 }
 
 /**
