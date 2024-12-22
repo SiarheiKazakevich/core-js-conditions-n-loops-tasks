@@ -520,12 +520,18 @@ function rotateMatrix(matrix) {
  */
 function sortByAsc(arr) {
   const arr2 = arr;
-  for (let i = 0; i < arr.length; i += 1) {
-    if (arr2[i] > arr2[i + 1]) {
-      [arr2[i], arr2[i + 1]] = [arr2[i + 1], arr2[i]];
-      i = -1;
+  let swapped;
+  do {
+    swapped = false;
+    for (let i = 0; i < arr2.length - 1; i += 1) {
+      if (arr2[i] > arr2[i + 1]) {
+        [arr2[i], arr2[i + 1]] = [arr2[i + 1], arr2[i]];
+        i = -1;
+        swapped = true;
+      }
     }
-  }
+  } while (swapped);
+  return arr2;
 }
 
 /**
