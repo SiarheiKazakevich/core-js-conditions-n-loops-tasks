@@ -187,6 +187,62 @@ function convertToRomanNumerals(num) {
  *  '1950.2'  => 'one nine five zero point two'
  */
 function convertNumberToString(numberStr) {
+  /* let result = '';
+  let startIndex = 0;
+
+  // Проверяем, если число отрицательное
+  if (numberStr[0] === '-') {
+    result += 'minus ';
+    startIndex = 1;
+  }
+
+  // Перебираем все символы в строке
+  for (let i = startIndex; i < numberStr.length; i += 1) {
+    const char = numberStr[i];
+    if (char === '.') {
+      result += 'point ';
+    } else {
+      switch (char) {
+        case '0':
+          result += 'zero ';
+          break;
+        case '1':
+          result += 'one ';
+          break;
+        case '2':
+          result += 'two ';
+          break;
+        case '3':
+          result += 'three ';
+          break;
+        case '4':
+          result += 'four ';
+          break;
+        case '5':
+          result += 'five ';
+          break;
+        case '6':
+          result += 'six ';
+          break;
+        case '7':
+          result += 'seven ';
+          break;
+        case '8':
+          result += 'eight ';
+          break;
+        case '9':
+          result += 'nine ';
+          break;
+        case '.':
+          result += 'point ';
+          break;
+        default:
+          break; // Если символ не найден, пропускаем его
+      }
+    }
+  }
+  // Убираем лишний пробел в конце и возвращаем результат
+  return result.trim(); */
   const words = {
     0: 'zero',
     1: 'one',
@@ -205,18 +261,33 @@ function convertNumberToString(numberStr) {
   let result = '';
   let startIndex = 0;
 
-  if (numberStr[0] === '-') {
+  if (numberStr[0] === '-' && numberStr !== '-0' && numberStr !== '0') {
     result += `${words['-']} `;
     startIndex = 1;
+    for (let i = startIndex; i < numberStr.length; i += 1) {
+      const char = numberStr[i];
+
+      // Если символ — точка, заменяем на 'point'
+      if (char === '.') {
+        result += `${words['.']} `;
+      } else if (char in words) {
+        result += `${words[char]} `;
+      }
+    }
   }
+  if (numberStr !== '-0' && numberStr !== '0' && numberStr !== '0') {
+    // Перебор каждого символа в строке
+    for (let i = startIndex; i < numberStr.length; i += 1) {
+      const char = numberStr[i];
 
-  for (let i = startIndex; i < numberStr.length; i += 1) {
-    const char = numberStr[i];
-    result += char in words ? `${words[char]} ` : '';
+      // Если символ — точка, заменяем на 'point'
+      if (char === '.') {
+        result += `${words['.']} `;
+      } else if (char in words) {
+        result += `${words[char]} `;
+      }
+    }
   }
-
-  result = result.trim().replace('point', 'point ');
-
   return result.trim();
 }
 
